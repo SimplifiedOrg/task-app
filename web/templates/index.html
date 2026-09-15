@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tasks</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 3rem auto; padding: 0 1rem; line-height: 1.5; }
+  h1 { font-size: 1.75rem; margin-bottom: 1rem; }
+  form.add { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  form.add input[name=title] { flex: 1; min-width: 12rem; }
+  input, select, button { font: inherit; padding: .5rem .75rem; border: 1px solid #8884; border-radius: .5rem; background: transparent; color: inherit; }
+  button { cursor: pointer; }
+  button.primary { background: #2563eb; border-color: #2563eb; color: #fff; }
+  button.danger { color: #dc2626; }
+  ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; }
+  li { display: flex; align-items: center; gap: .75rem; padding: .75rem 1rem; border: 1px solid #8884; border-radius: .75rem; }
+  li .title { flex: 1; font-weight: 500; }
+  li .due { font-size: .875rem; opacity: .7; }
+  .badge { font-size: .75rem; padding: .1rem .5rem; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+  .low { background: #22c55e33; color: #15803d; }
+  .medium { background: #f59e0b33; color: #b45309; }
+  .high { background: #ef444433; color: #b91c1c; }
+  li form { display: contents; }
+  .empty { text-align: center; opacity: .6; padding: 2rem; }
+</style>
+<h1>Tasks</h1>
+<form class="add" method="post" action="/add">
+  <input name="title" placeholder="What needs doing?" required autofocus>
+  <select name="priority">
+    <option>low</option>
+    <option selected>medium</option>
+    <option>high</option>
+  </select>
+  <input type="date" name="due">
+  <button class="primary">Add</button>
+</form>
+<ul>
+  {% for t in tasks %}
+  <li>
+    <span class="title">{{ t.title }}</span>
+    {% if t.due %}<span class="due">{{ t.due }}</span>{% endif %}
+    <span class="badge {{ t.priority }}">{{ t.priority }}</span>
+    <form method="post" action="/complete/{{ t.id }}"><button>Done</button></form>
+    <form method="post" action="/delete/{{ t.id }}"><button class="danger">Delete</button></form>
+  </li>
+  {% else %}
+  <li class="empty">All done. Nothing left to do.</li>
+  {% endfor %}
+</ul>

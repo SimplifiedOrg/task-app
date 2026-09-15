@@ -1,0 +1,23 @@
+[
+  {
+    "id": 2,
+    "title": "Book dentist appointment",
+    "status": "todo",
+    "priority": "high",
+    "due": null
+  },
+  {
+    "id": 4,
+    "title": "Water the plants",
+    "status": "todo",
+    "priority": "low",
+    "due": null
+  },
+  {
+    "id": 5,
+    "title": "Pay electricity bill",
+    "status": "todo",
+    "priority": "medium",
+    "due": "2026-09-01"
+  }
+]
